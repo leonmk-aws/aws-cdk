@@ -1,4 +1,4 @@
-name: Check Git LFS Pointers
+name: Check Git LFS Pointer
 
 on:
   pull_request_target:

@@ -16,7 +16,7 @@ framework to define cloud infrastructure in code and provision it through AWS Cl
 It offers a high-level object-oriented abstraction to define AWS resources imperatively using
 the power of modern programming languages. Using the CDK’s library of
 infrastructure constructs, you can easily encapsulate AWS best practices in your
-infrastructure definition and share it without worrying about boilerplate logic.
+infrastructure definition and share it without worrying about boilerplate logic
 
 The CDK is available in the following languages:
 

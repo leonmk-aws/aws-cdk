@@ -21,7 +21,7 @@ jobs:
       - name: Check for LFS pointer issues
         run: |
           echo "$(git rev-parse --abbrev-ref HEAD)"
-          echo "Here 2"
+          echo "Here 3"
           git lfs fsck
           status=$?
           if [ $status -ne 0 ]; then

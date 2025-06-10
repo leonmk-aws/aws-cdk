@@ -1,4 +1,4 @@
-name: Check Git LFS
+name: Check Git LFS rerere
 
 on:
   pull_request_target:

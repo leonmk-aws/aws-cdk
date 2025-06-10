@@ -1,0 +1,29 @@
+name: Check Git LFS Pointers
+on:
+  pull_request_target:
+    types:
+      - labeled
+      - unlabeled
+      - edited
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  check-lfs-pointers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Check for LFS pointer issues
+        run: |
+          echo "$(git rev-parse --abbrev-ref HEAD)"
+          git lfs fsck
+          status=$?
+          if [ $status -ne 0 ]; then
+            echo "::error::Install Git LFS and fix the files with 'git lfs migrate import --no-rewrite <path to the files>'"
+          fi
+          exit $status

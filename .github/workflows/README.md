@@ -2,7 +2,7 @@
 
 These workflows and actions are configured in the AWS CDK GitHub repository.
 
-## Pull Request Triggered
+## Pull Request Triggere
 
 ### Auto Approve
 

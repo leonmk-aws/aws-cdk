@@ -1,11 +1,14 @@
 name: Check Git LFS Pointers
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+  pull_request_target:
+    types:
+      - labeled
+      - unlabeled
+      - edited
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   check-lfs-pointers:

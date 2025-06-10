@@ -16,10 +16,6 @@ jobs:
         with:
           lfs: false
 
-      # - name: Install Git LFS
-      #   run: |
-      #     git lfs install
-
       - name: Check for LFS pointer issues
         run: |
           git lfs fsck

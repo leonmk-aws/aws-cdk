@@ -1,0 +1,29 @@
+name: Check Git LFS Pointers
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  check-lfs-pointers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          lfs: false
+
+      # - name: Install Git LFS
+      #   run: |
+      #     git lfs install
+
+      - name: Check for LFS pointer issues
+        run: |
+          git lfs fsck
+          if [ $? -ne 0 ]; then
+            echo "::error::Found issues with Git LFS pointers"
+            exit 1
+          fi

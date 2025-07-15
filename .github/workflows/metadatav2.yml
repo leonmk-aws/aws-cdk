@@ -47,9 +47,18 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-          # Get the PR branch name
+          # Get the PR branch name with fallback to current branch
           PR_BRANCH="${{ github.event.pull_request.head.ref }}"
-          echo "PR branch: $PR_BRANCH"
+          if [ -z "$PR_BRANCH" ]; then
+            echo "PR branch name is empty, using current branch"
+            PR_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            if [ "$PR_BRANCH" = "HEAD" ]; then
+              echo "Detached HEAD state detected, using github.ref_name instead"
+              PR_BRANCH="${{ github.ref_name }}"
+            fi
+          fi
+          
+          echo "Using branch: $PR_BRANCH"
           
           # Make sure we're on the right branch
           git checkout -B "$PR_BRANCH"
@@ -58,7 +67,7 @@ jobs:
           git add .
           git commit -m "chore: update analytics metadata blueprints"
           
-          # Push directly to the PR branch
+          # Push directly to the branch
           git push origin "$PR_BRANCH"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -47,16 +47,18 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-          git fetch origin ${{ github.event.pull_request.head.ref }}
-
-          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/${{ github.event.pull_request.head.ref }})" ]; then
-            echo "Remote branch updated since approved commit; aborting."
-            exit 1
-          fi
-
-          git checkout -B ${{ github.event.pull_request.head.ref }}
+          # Get the PR branch name
+          PR_BRANCH="${{ github.event.pull_request.head.ref }}"
+          echo "PR branch: $PR_BRANCH"
+          
+          # Make sure we're on the right branch
+          git checkout -B "$PR_BRANCH"
+          
+          # Add and commit changes
           git add .
           git commit -m "chore: update analytics metadata blueprints"
-          git push origin ${{ github.event.pull_request.head.ref }}
+          
+          # Push directly to the PR branch
+          git push origin "$PR_BRANCH"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

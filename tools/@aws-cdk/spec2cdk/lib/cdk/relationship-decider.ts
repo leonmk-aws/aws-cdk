@@ -5,9 +5,6 @@ import { getReferenceProps } from './reference-props';
 import { log } from '../util';
 import { SelectiveImport } from './service-submodule';
 
-// For now we want relationships to be applied only for these services
-export const RELATIONSHIP_SERVICES: string[] = [];
-
 /**
  * Represents a cross-service property relationship that enables references
  * between resources from different AWS services.
